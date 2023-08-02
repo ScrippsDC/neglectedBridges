@@ -1,0 +1,13 @@
+AF_log.md
+nb_template.ipynb
+py_template.py
+*.pdf
+*.docx
+*.DS_Store
+*.ipynb
+
+/docket
+
+/data/manual/
+
+/data/NBI/
