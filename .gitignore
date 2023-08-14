@@ -8,6 +8,11 @@ py_template.py
 
 /docket
 
-/data/manual/
+/data/manual/*
+!/data/manual/BIL_bridge_project_coordinates_dedupe_reformat.csv
+!/data/manual/flourish_map.csv
+
+/data/BIL/
 
 /data/NBI/
+
