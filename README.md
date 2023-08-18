@@ -23,9 +23,7 @@ All the etl and analysis for this piece is in the file `etl_analysis/1_poor.py`,
 ### ETL summary:
 
 1. Start with:  
-
 * `Poor_2014_Poor_2022.txt`: 20,008 rows 
-
 * `2023AllRecordsDelimitedAllStates.txt`: 737,137 rows 
 
 2. Filter `2023AllRecordsDelimitedAllStates.txt` for poor bridges. Assign to variable **nbi**: 42,404 rows 
@@ -33,18 +31,15 @@ All the etl and analysis for this piece is in the file `etl_analysis/1_poor.py`,
 3. Filter `Poor_2014_Poor_2022.txt` for bridges that were also poor for all years (or had gaps in their inspection record) from 2015-2021. Assign to variable **all_poor**: 18,354 rows 
 
 4. Create a unique identifier in both filtered datasets (nbi and all_poor): 
-
 * Add a state fips code to nbi 
-
 * Remove leading and trailing whitespace, and leading zeroes from bridge ID. 
-
 * Combine the cleaned bridge ID with state fips to create a column "ID" 
 
 5. Use "ID" columns to filter **nbi** only for bridges that also appear in **all_poor** -- i.e. bridges that were poor in 2014, 2022, 2023, and were either poor or had a missing inspection record for all years 2015 to 2021. Assign to variable **final**:  16,220 rows 
 
 6. Filter **final** only for bridges that were open in 2023 (aka where “OPEN_CLOSED_POSTED_041” was not “K”), overwrite **final**: 14,570 rows 
 
-Output saved at: data/processed/etl_1_poor.csv 
+Output saved at: `data/processed/etl_1_poor.csv`` 
 
 
 ### Analysis:
