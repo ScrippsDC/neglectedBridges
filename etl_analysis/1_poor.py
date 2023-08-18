@@ -1,7 +1,7 @@
 import pandas
 
 """
-AF 6-2023
+AF 8-2023
 
 Database of all bridges in poor condition and other characteristics 
 
@@ -10,7 +10,7 @@ Database of all bridges in poor condition and other characteristics
 
         ~//data//infobridge//Poor_{first_year}_Poor_2022.txt
 
-        ~//data//infobridge//NBI_All.txt
+        ~//data//infobridge//2023AllRecordsDelimitedAllStates.txt
 
 
     outputs: 
