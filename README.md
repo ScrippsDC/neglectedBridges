@@ -30,7 +30,7 @@ Filter `2023AllRecordsDelimitedAllStates.txt` for poor bridges. Assign to variab
 
 Filter `Poor_2014_Poor_2022.txt` for bridges that were also poor for all years (or had gaps in their inspection record) from 2015-2021. Assign to variable **all_poor**: 18,354 rows 
 
-Create a unique identifier in both filtered datasets (nbi and all_poor):
+Create a unique identifier in both filtered datasets (**nbi** and **all_poor**):
 * Add a state fips code to **nbi**, (**all_poor** already has one)
 * Remove leading and trailing whitespace, and leading zeroes from bridge ID. 
 * Combine the cleaned bridge ID with state fips to create a column "ID" 
