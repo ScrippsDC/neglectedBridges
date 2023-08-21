@@ -45,6 +45,7 @@ For the interactive map in the digital piece, we used the coordinates from the 2
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23704052
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23704340
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23700180
+* https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23703351
 
 The dataset to create the Flourish graphic is at: `data/manual/flourish_map.csv`
 
