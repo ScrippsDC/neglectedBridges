@@ -12,7 +12,7 @@ The [National Bridge Inventory](https://www.fhwa.dot.gov/bridge/mtguide.cfm) was
 
 Under the "Bridge Condition Transition History" tab, we filtered for bridges that had a poor rating in 2014 and a poor rating in 2022. (During ETL, we filtered for bridges that were (1) poorly rated or (2) not rated from 2015-2021.) This file is saved at `data/infobridge/Poor_2014_Poor_2022.txt`.
 
-The 2023 NBI data was released on June 27th, 2023 but not yet available in InfoBridge. As a result, we downloaded the 2023 data directly from the [NBI site](https://www.fhwa.dot.gov/bridge/nbi/ascii2023.cfm), specifically the version under "Download all records. Includes non-highway and routes under bridges zip file (57 mb).)" This file is saved at `data/NBI/2023AllRecordsDelimitedAllStates.txt` but is not included in this repository because it is larger than GitHub's 100MB file limit.
+The 2023 NBI data was released on June 27th, 2023 but not yet available in InfoBridge. As a result, we downloaded the 2023 data directly from the [NBI site](https://www.fhwa.dot.gov/bridge/nbi/ascii2023.cfm), specifically the version under "Download all records. Includes non-highway and routes under bridges zip file (57 mb)." This file is saved at `data/NBI/2023AllRecordsDelimitedAllStates.txt` but is not included in this repository because it is larger than GitHub's 100MB file limit.
 
 Documentation for the NBI can be found [here](https://www.fhwa.dot.gov/bridge/mtguide.pdf).
 
@@ -22,23 +22,37 @@ All the etl and analysis for this piece is in the file `etl_analysis/1_poor.py`,
 
 ### ETL summary:
 
-* Start with `Poor_2014_Poor_2022.txt`: 20,008 rows
-* Filter for bridges that were also poor for all years (or had gaps in their inspection record) from 2015-2021: 18,354 rows
-* Left joined with `2023AllRecordsDelimitedAllStates.txt` on the unique identifier (state and bridge ID), filtering for bridges that were poor in 2023: 16,220 rows       
-    * When creating the unique identifier, leading and trailing whitespace, as well as leading 0s, were removed from the bridge ID.
-* Filtered only for bridges that were open in 2023 (aka where “OPEN_CLOSED_POSTED_041” was not “K”): 14,570 rows   
-* Output saved at: `data/processed/etl_1_poor.csv`
+Start with:
+* `Poor_2014_Poor_2022.txt`: 20,008 rows 
+* `2023AllRecordsDelimitedAllStates.txt`: 737,137 rows 
+
+Filter `2023AllRecordsDelimitedAllStates.txt` for poor bridges. Assign to variable **nbi**: 42,404 rows 
+
+Filter `Poor_2014_Poor_2022.txt` for bridges that were also poor for all years (or had gaps in their inspection record) from 2015-2021. Assign to variable **all_poor**: 18,354 rows 
+
+Create a unique identifier in both filtered datasets (**nbi** and **all_poor**):
+* Add a state fips code to **nbi**, (**all_poor** already has one)
+* Remove leading and trailing whitespace, and leading zeroes from bridge ID. 
+* Combine the cleaned bridge ID with state fips to create a column 'ID' 
+
+Use 'ID' to filter **nbi** only for bridges that also appear in **all_poor** -- i.e. bridges that were poor in 2014, 2022, 2023, and were either poor or had a missing inspection record for all years 2015 to 2021. Assign to variable **final**:  16,220 rows 
+
+Filter **final** only for bridges that were open in 2023 (aka where 'OPEN_CLOSED_POSTED_041' was not “K”), overwrite **final**: 14,570 rows 
+
+Output saved at: `data/processed/etl_1_poor.csv` 
+
 
 ### Analysis:
 
 * Count the number of bridges: 14,570
 * Count the number of states: 50 states + DC + Puerto Rico (52 total)
 * Sum the ridership ('ADT_029'): 46,587,345
-* Sum the costs of improvement ('TOTAL_IMP_COST_096', replacing NaNs): $97,366,070,000
+* Sum the costs of improvement ('TOTAL_IMP_COST_096', treating NaNs as $0): $97,366,070,000
 
 ## Graphics 
+The interactive map in the web story maps the bridges in final by their coordinates in the 2022 data in infobridge (`data/infobridge/NBI_2022_Poor.txt`), joined by the same unique identifier we constructed in the ETL step (column 'ID'). 
 
-For the interactive map in the digital piece, we used the coordinates from the 2022 data (`data/infobridge/NBI_2022_Poor.txt`). For the following cases, the 2022 coordinates were clearly outside of the United States, and we manually replaced the coordinates with data from previous years:
+For the following cases, the 2022 coordinates were clearly outside of the United States, and we manually replaced the coordinates with data from previous years:
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23743484
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23703612
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23704051
