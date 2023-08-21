@@ -5,6 +5,7 @@ py_template.py
 *.docx
 *.DS_Store
 *.ipynb
+*.wav
 
 /docket
 
@@ -15,4 +16,6 @@ py_template.py
 /data/BIL/
 
 /data/NBI/
+
+
 
