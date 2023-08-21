@@ -12,7 +12,7 @@ The [National Bridge Inventory](https://www.fhwa.dot.gov/bridge/mtguide.cfm) was
 
 Under the "Bridge Condition Transition History" tab, we filtered for bridges that had a poor rating in 2014 and a poor rating in 2022. (During ETL, we filtered for bridges that were (1) poorly rated or (2) not rated from 2015-2021.) This file is saved at `data/infobridge/Poor_2014_Poor_2022.txt`.
 
-The 2023 NBI data was released on June 27th, 2023 but not yet available in InfoBridge. As a result, we downloaded the 2023 data directly from the [NBI site](https://www.fhwa.dot.gov/bridge/nbi/ascii2023.cfm), specifically the version under "Download all records. Includes non-highway and routes under bridges zip file (57 mb).)" This file is saved at `data/NBI/2023AllRecordsDelimitedAllStates.txt` but is not included in this repository because it is larger than GitHub's 100MB file limit.
+The 2023 NBI data was released on June 27th, 2023 but not yet available in InfoBridge. As a result, we downloaded the 2023 data directly from the [NBI site](https://www.fhwa.dot.gov/bridge/nbi/ascii2023.cfm), specifically the version under "Download all records. Includes non-highway and routes under bridges zip file (57 mb)." This file is saved at `data/NBI/2023AllRecordsDelimitedAllStates.txt` but is not included in this repository because it is larger than GitHub's 100MB file limit.
 
 Documentation for the NBI can be found [here](https://www.fhwa.dot.gov/bridge/mtguide.pdf).
 
@@ -33,13 +33,13 @@ Filter `Poor_2014_Poor_2022.txt` for bridges that were also poor for all years (
 Create a unique identifier in both filtered datasets (**nbi** and **all_poor**):
 * Add a state fips code to **nbi**, (**all_poor** already has one)
 * Remove leading and trailing whitespace, and leading zeroes from bridge ID. 
-* Combine the cleaned bridge ID with state fips to create a column "ID" 
+* Combine the cleaned bridge ID with state fips to create a column 'ID' 
 
-Use "ID" columns to filter **nbi** only for bridges that also appear in **all_poor** -- i.e. bridges that were poor in 2014, 2022, 2023, and were either poor or had a missing inspection record for all years 2015 to 2021. Assign to variable **final**:  16,220 rows 
+Use 'ID' to filter **nbi** only for bridges that also appear in **all_poor** -- i.e. bridges that were poor in 2014, 2022, 2023, and were either poor or had a missing inspection record for all years 2015 to 2021. Assign to variable **final**:  16,220 rows 
 
-Filter **final** only for bridges that were open in 2023 (aka where “OPEN_CLOSED_POSTED_041” was not “K”), overwrite **final**: 14,570 rows 
+Filter **final** only for bridges that were open in 2023 (aka where 'OPEN_CLOSED_POSTED_041' was not “K”), overwrite **final**: 14,570 rows 
 
-Output saved at: `data/processed/etl_1_poor.csv`` 
+Output saved at: `data/processed/etl_1_poor.csv` 
 
 
 ### Analysis:
@@ -47,10 +47,10 @@ Output saved at: `data/processed/etl_1_poor.csv``
 * Count the number of bridges: 14,570
 * Count the number of states: 50 states + DC + Puerto Rico (52 total)
 * Sum the ridership ('ADT_029'): 46,587,345
-* Sum the costs of improvement ('TOTAL_IMP_COST_096', replacing NaNs): $97,366,070,000
+* Sum the costs of improvement ('TOTAL_IMP_COST_096', treating NaNs as $0): $97,366,070,000
 
 ## Graphics 
-The interactive map in the web story maps the bridges in final by their coordinates in the 2022 data in infobridge (`data/infobridge/NBI_2022_Poor.txt`), joined by the same unique identifier we constructed in the ETL step (column "ID"). 
+The interactive map in the web story maps the bridges in final by their coordinates in the 2022 data in infobridge (`data/infobridge/NBI_2022_Poor.txt`), joined by the same unique identifier we constructed in the ETL step (column 'ID'). 
 
 For the following cases, the 2022 coordinates were clearly outside of the United States, and we manually replaced the coordinates with data from previous years:
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23743484
