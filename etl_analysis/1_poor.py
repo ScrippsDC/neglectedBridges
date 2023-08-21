@@ -1,5 +1,3 @@
-import pandas
-
 """
 AF 8-2023
 
@@ -10,7 +8,7 @@ Database of all bridges in poor condition and other characteristics
 
         ~//data//infobridge//Poor_{first_year}_Poor_2022.txt
 
-        ~//data//infobridge//2023AllRecordsDelimitedAllStates.txt
+        ~//data//NBI//2023AllRecordsDelimitedAllStates.txt
 
 
     outputs: 
@@ -39,7 +37,6 @@ poor_str = infobridge + f"Poor_{first_year}_Poor_{last_year}.txt"
 nbi_str = nbi + "2023AllRecordsDelimitedAllStates.txt"
 FIPS_str = "https://www2.census.gov/geo/docs/reference/codes2020/national_state2020.txt"
 
-
 ########################
 # READING IN THE FILES #
 ########################
@@ -49,10 +46,9 @@ print(f"Prelim # of consistently poor bridges: {len(poor)}")
 nbi = pd.read_csv(nbi_str)
 print(f"Number of records in NBI: {len(nbi)}")
 
-
-###########################
+#############
 # FILTERING #
-###########################
+#############
 
 # only keep records describing bridges
 nbi = nbi[nbi['RECORD_TYPE_005A'].astype(str)=='1']
@@ -68,9 +64,9 @@ for year in range(first_year, last_year+1):
 all_poor = poor
 print(f"Number of bridges that were poor (or missing) all years between {first_year} and {last_year}: {len(all_poor)}")
 
-###########################
+#############
 # COMBINING #
-###########################
+#############
 
 # add state fips code to nbi
 fips = pd.read_csv(FIPS_str, delimiter ="|", usecols = ['STATEFP', 'STATE_NAME'])
@@ -95,11 +91,9 @@ final = final[final['OPEN_CLOSED_POSTED_041']!="K"]
 outfile_str = processed + "etl_1_poor.csv"
 final.to_csv(outfile_str, index=False)
 
-
-
-####################
+############
 # ANALYSIS #
-####################
+############
 
 print(f"Dimensions of final (not including closed bridges): {final.shape}")
 
