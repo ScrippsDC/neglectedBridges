@@ -46,7 +46,7 @@ Output saved at: `data/processed/etl_1_poor.csv`
 
 * Count the number of bridges: 14,570
 * Count the number of states: 50 states + DC + Puerto Rico (52 total)
-* Sum the ridership ('ADT_029'): 46,587,345
+* Sum the average daily traffic ('ADT_029'): 46,587,345 vehicles
 * Sum the costs of improvement ('TOTAL_IMP_COST_096', treating NaNs as $0): $97,366,070,000
 
 ## Graphics 
