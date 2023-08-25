@@ -6,6 +6,8 @@ Namely:
 
 >More than 14,000 bridges in all 50 states and Washington, D.C., have been ranked in poor condition for at least a decade. Combined, they carry over 46 million passengers every day. While a bridge in "poor" condition doesn't mean it will collapse, it may require weight limits for trucks and more frequent inspections. Bridges in poor condition are at greater risk of closure for safety concerns. Repairing all of the poor bridges identified in the Scripps News analysis would cost at least $97 billion.
 
+A follow-up piece, [Buttigieg defends effort to fix ailing bridges across the country](https://scrippsnews.com/stories/buttigieg-responds-to-scripps-news-investigation-into-ailing-bridges/), was published on August 22, 2023.
+
 ## Data
 
 The [National Bridge Inventory](https://www.fhwa.dot.gov/bridge/mtguide.cfm) was the main data source of this piece, updated annually. Data on bridge conditions from 2014-2022 is from the [InfoBridge portal](https://infobridge.fhwa.dot.gov/Data/Dashboard).
@@ -49,7 +51,9 @@ Output saved at: `data/processed/etl_1_poor.csv`
 * Sum the average daily traffic ('ADT_029'): 46,587,345 vehicles
 * Sum the costs of improvement ('TOTAL_IMP_COST_096', treating NaNs as $0): $97,366,070,000
 
-## Graphics 
+## Interactive Graphics 
+
+### Map
 The interactive map in the web story maps the bridges in final by their coordinates in the 2022 data in infobridge (`data/infobridge/NBI_2022_Poor.txt`), joined by the same unique identifier we constructed in the ETL step (column 'ID'). 
 
 For the following cases, the 2022 coordinates were clearly outside of the United States, and we manually replaced the coordinates with data from previous years:
@@ -61,7 +65,12 @@ For the following cases, the 2022 coordinates were clearly outside of the United
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23700180
 * https://infobridge.fhwa.dot.gov/Data/BridgeDetail/23703351
 
-The dataset to create the Flourish graphic is at: `data/manual/flourish_map.csv`
+The dataset to create the Flourish graphic is at: `data/manual/flourish_map.csv`.
+
+### Bar Chart
+The follow-up piece has an additional graphic showing the increase in bridges needing repair over the past decade. The script `etl_analysis/2_bridge_condition_counts.py` tabulates the condition of bridges in the NBI from 2016-2023, with the output saved at `data/processed/etl_2_bridge_condition_counts.csv`.
+
+We checked the counts from 2016-2022 with the numbers published by the [Bureau of Transportation Statistics](https://www.bts.gov/content/condition-us-highway-bridges), and found that they were the same. As a result, the final graphic uses 2014-2022 numbers from the Bureau of Transportation Statistics and 2023 numbers from `data/processed/etl_2_bridge_condition_counts.csv`. 
 
 ## Other data elements
 
