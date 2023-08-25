@@ -68,7 +68,7 @@ For the following cases, the 2022 coordinates were clearly outside of the United
 The dataset to create the Flourish graphic is at: `data/manual/flourish_map.csv`.
 
 ### Bar Chart
-The follow-up piece has an additional graphic showing the increase in bridges needing repair over the past decade. The script `etl_analysis/2_bridge_condition_counts.py` tabulates the condition of bridges in the NBI from 2016-2023 -- downloading each year directly from the NBI site, the same source we used for 2023 in the main analysis. We save the tabulation at `data/processed/etl_2_bridge_condition_counts.csv`.
+The follow-up piece has an additional graphic showing the increase in bridges needing repair over the past decade. The script `etl_analysis/2_bridge_condition_counts.py` tabulates the condition of bridges in the NBI from 2016-2023, downloading each year directly from the [NBI site](https://www.fhwa.dot.gov/bridge/nbi/ascii2023.cfm). This is the same source we used for 2023 in the main analysis. We save the tabulated data at `data/processed/etl_2_bridge_condition_counts.csv`.
 
 We checked the counts from 2016-2022 with the numbers published by the [Bureau of Transportation Statistics](https://www.bts.gov/content/condition-us-highway-bridges), and found that they were the same. As a result, the final graphic uses 2014-2022 numbers from the Bureau of Transportation Statistics and 2023 numbers from `data/processed/etl_2_bridge_condition_counts.csv`. 
 
